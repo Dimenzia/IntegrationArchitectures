@@ -1,7 +1,5 @@
 package de.hbrs.ia.contract;
 
-import com.mongodb.DBCollection;
-import com.mongodb.DocumentToDBRefTransformer;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.FindIterable;
@@ -18,6 +16,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mongodb.client.model.Filters.all;
 import static com.mongodb.client.model.Filters.eq;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -37,6 +36,7 @@ public class ManagePersonalImpl implements ManagePersonal {
     public void createSalesMan( SalesMan record ) {
         MongoCollection<SalesMan> collection = database.getCollection("salesman", SalesMan.class);
         collection.insertOne(record);
+
     }
 
     public void addPerformanceRecord(EvaluationRecord record , int sid ) {
@@ -75,9 +75,40 @@ public class ManagePersonalImpl implements ManagePersonal {
     }
 
     public EvaluationRecord readEvaluationRecords(int sid ) {
-        MongoCollection<Document> collection = database.getCollection("evaluationrecord");
-
-
+        MongoCollection<EvaluationRecord> collection = database.getCollection("evaluationrecord", EvaluationRecord.class);
         return null;
+    }
+
+    public void updateSalesmanLastName (SalesMan record, String newLastName) {
+        MongoCollection<SalesMan> collection = database.getCollection("salesman", SalesMan.class);
+        SalesMan temp = record;
+        temp.setLastname(newLastName);
+        collection.deleteOne(record.toDocument());
+        collection.insertOne(temp);
+    }
+
+    public void updateSalesmanId (SalesMan record, Integer newId) {
+        MongoCollection<SalesMan> collection = database.getCollection("salesman", SalesMan.class);
+        SalesMan temp = record;
+        temp.setId(newId);
+        collection.deleteOne(record.toDocument());
+        collection.insertOne(temp);
+    }
+
+    public SalesMan deleteOneSalesman (SalesMan salesMan) {
+        MongoCollection<SalesMan> collection = database.getCollection("salesman", SalesMan.class);
+        //SalesMan salesMan = collection.find(id = salesManId);
+        collection.findOneAndDelete(salesMan.toDocument());
+        return salesMan;
+    }
+
+    public void deleteAllSalesmen() {
+        MongoCollection<SalesMan> collection = database.getCollection("salesman", SalesMan.class);
+        collection.drop();
+    }
+
+    public void deleteAllEvaluationRecords() {
+        MongoCollection<EvaluationRecord> collection = database.getCollection("evaluationRecord", EvaluationRecord.class);
+        collection.drop();
     }
 }
