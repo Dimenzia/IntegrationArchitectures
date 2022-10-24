@@ -71,7 +71,7 @@ public class ManagePersonalImpl implements ManagePersonal {
     public void updateSalesmanId (SalesMan record, Integer newId) {
         MongoCollection<SalesMan> collection = database.getCollection("salesman", SalesMan.class);
         SalesMan temp = record;
-        temp.setId(newId);
+        temp.setSid(newId);
         collection.deleteOne(record.toDocument());
         collection.insertOne(temp);
     }
