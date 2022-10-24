@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a902d61d-022e-481d-b84c-5003ac98c524" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hbrs/ia/contract/ManagePersonalImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hbrs/ia/contract/ManagePersonalImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hbrs/ia/contract/ManagePersonal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hbrs/ia/contract/ManagePersonal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +41,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1666629864814</updated>
-      <workItem from="1666629866390" duration="4598000" />
+      <workItem from="1666629866390" duration="5537000" />
     </task>
     <servers />
   </component>

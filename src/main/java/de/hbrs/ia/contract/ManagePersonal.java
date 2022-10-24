@@ -16,4 +16,15 @@ public interface ManagePersonal {
 
     public EvaluationRecord readEvaluationRecords(int sid );
 
+    public void updateSalesmanLastName (SalesMan record, String newLastName);
+
+    public void updateSalesmanId (SalesMan record, Integer newId);
+
+    public SalesMan deleteOneSalesman(SalesMan salesMan);
+
+    public void deleteAllSalesmen();
+
+    public void deleteAllEvaluationRecords();
+    }
+
 }
