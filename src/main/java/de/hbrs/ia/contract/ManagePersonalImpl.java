@@ -30,6 +30,7 @@ public class ManagePersonalImpl implements ManagePersonal {
                     .register(OrderEvaluation.class)
                     .register(EvaluationRecord.class)
                     .register(SocialEvaluation.class)
+                    .register(SalesMan.class)
                     .build()));
     static MongoClient mongoClient = new MongoClient();
     static MongoDatabase database = mongoClient.getDatabase("local").withCodecRegistry(pojoCodecRegistry);
@@ -46,38 +47,17 @@ public class ManagePersonalImpl implements ManagePersonal {
     }
 
     public SalesMan readSalesMan( int sid ) {
-        MongoCollection<Document> collection = database.getCollection("salesman");
-        Document doc = collection.find(eq("id", sid)).first();
-
-        if (doc == null) {
-            return null;
-        }
-
-        SalesMan salesman = new SalesMan(doc.getString("firstname"), doc.getString("lastname"), doc.getInteger("id"));
-        return salesman;
+        MongoCollection<SalesMan> collection = database.getCollection("salesman", SalesMan.class);
+        return collection.find(eq("sid", sid)).first();
     }
 
     public List<SalesMan> querySalesMan(String attribute , String key ) {
-        MongoCollection<Document> collection = database.getCollection("salesman");
-        FindIterable<Document> docs = collection.find(eq(attribute, key));
-        List<SalesMan> list = new ArrayList<>();
-
-        for(Document doc : docs) {
-            SalesMan salesman = new SalesMan(
-                    doc.getString("firstname"),
-                    doc.getString("lastname"),
-                    doc.getInteger("id")
-            );
-            list.add(salesman);
-        }
-
-        return list;
+        MongoCollection<SalesMan> collection = database.getCollection("salesman", SalesMan.class);
+        return collection.find(eq(attribute, key)).into(new ArrayList<SalesMan>());
     }
 
     public EvaluationRecord readEvaluationRecords(int sid ) {
         MongoCollection<Document> collection = database.getCollection("evaluationrecord");
-
-
         return null;
     }
 }

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CLI {
 
@@ -40,13 +41,44 @@ public class CLI {
 
         EvaluationRecord test = new EvaluationRecord(1, 2022, oetest, setest);
         managePersonal.addPerformanceRecord(test, 1);
+        System.out.println("Welcome to the evaluation record system! Please enter help to see all commands");
         while (true) {
-            read();
+            executeCommand(read());
         }
     }
 
     public static String read() throws IOException {
+        System.out.print(">> ");
         String ausgabe = reader.readLine();
         return ausgabe;
+    }
+
+    public static void executeCommand(String command) throws IOException {
+        if(Objects.equals(command, "help")) {
+            System.out.println("Available Commands: add (salesman/evaluationrecord), read (salesman/evaluationrecord), update (salesman/evaluationrecord), delete (salesman/evaluationrecord)");
+        }
+        if(Objects.equals(command, "add salesman")) {
+            AddFunctions.addingSalesman(reader, managePersonal);
+        }
+        if(Objects.equals(command, "read salesman")) {
+            ReadFunctions.readSalesMan(reader, managePersonal);
+        }
+        if(Objects.equals(command, "update salesman")) {
+
+        }
+        if(Objects.equals(command, "delete salesman")) {
+
+        }
+        if(Objects.equals(command, "add evaluationrecord")) {
+            AddFunctions.addingEvaluationRecord(reader, managePersonal);
+        }
+
+        if(Objects.equals(command, "read evaluationrecord")) {
+            ReadFunctions.readEvaluationRecords(reader, managePersonal);
+        }
+
+        if(Objects.equals(command, "update evaluationrecord")) {
+
+        }
     }
 }
