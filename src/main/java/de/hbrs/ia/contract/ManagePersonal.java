@@ -20,11 +20,9 @@ public interface ManagePersonal {
 
     public void updateSalesmanId (SalesMan record, Integer newId);
 
-    public SalesMan deleteOneSalesman(SalesMan salesMan);
+    public void deleteOneSalesman(SalesMan salesMan);
 
     public void deleteAllSalesmen();
 
     public void deleteAllEvaluationRecords();
-    }
-
 }

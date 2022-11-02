@@ -54,21 +54,47 @@ public class CLI {
     }
 
     public static void executeCommand(String command) throws IOException {
+
         if(Objects.equals(command, "help")) {
             System.out.println("Available Commands: add (salesman/evaluationrecord), read (salesman/evaluationrecord), update (salesman/evaluationrecord), delete (salesman/evaluationrecord)");
         }
+
         if(Objects.equals(command, "add salesman")) {
             AddFunctions.addingSalesman(reader, managePersonal);
         }
+
         if(Objects.equals(command, "read salesman")) {
             ReadFunctions.readSalesMan(reader, managePersonal);
         }
+
         if(Objects.equals(command, "update salesman")) {
+            System.out.println("Please enter the id of the employee you want to update");
+            int id = Integer.parseInt(reader.readLine());;
+            SalesMan sm = managePersonal.readSalesMan(id);
+            System.out.println("What do u want to update? (available options: id or last name)");
+            String response = reader.readLine();
 
+            if(Objects.equals(response, "id")) {
+                UpdateFunctions.updateSalesmanID(reader, managePersonal, id);
+            }
+
+            else if(Objects.equals(response, "last name")) {
+                UpdateFunctions.updateSalesmanLastName(reader, managePersonal, id);
+            }
+
+            else {
+                System.out.println("Invalid input");
+            }
         }
+
         if(Objects.equals(command, "delete salesman")) {
-
+            DeleteFunctions.deleteSalesman(reader, managePersonal);
         }
+
+        if(Objects.equals(command, "delete all salesmen")) {
+            DeleteFunctions.deleteAllSalesMen(reader, managePersonal);
+        }
+
         if(Objects.equals(command, "add evaluationrecord")) {
             AddFunctions.addingEvaluationRecord(reader, managePersonal);
         }
@@ -78,7 +104,14 @@ public class CLI {
         }
 
         if(Objects.equals(command, "update evaluationrecord")) {
+            //Hier fehlt noch was
+        }
 
+        if(Objects.equals(command, "delete evaluationrecord")) {
+            //Hier fehlt noch was
+        }
+        if(Objects.equals(command, "delete all evaluationrecords")) {
+            DeleteFunctions.deleteAllEvaluationRecords(reader, managePersonal);
         }
     }
 }

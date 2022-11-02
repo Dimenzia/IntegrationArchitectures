@@ -1,22 +1,35 @@
 package de.hbrs.ia.controller;
 
 import de.hbrs.ia.contract.ManagePersonal;
+import de.hbrs.ia.model.SalesMan;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Objects;
 
 public class UpdateFunctions {
 
-    public static void updateSalesman(BufferedReader reader, ManagePersonal mp) throws IOException {
-        System.out.println("Please enter the id of the employee you want to update");
-        int id = reader.read();
+    public static void updateSalesmanLastName(BufferedReader reader, ManagePersonal mp, int id) throws IOException {
+        SalesMan sm = mp.readSalesMan(id);
+        System.out.println("What is the new last name of the employee?");
+        String newLastName = reader.readLine();
+        mp.updateSalesmanLastName(sm, newLastName);
+        System.out.println("Employee successfully updated");
+        PrintFunctions.printSalesMan(sm);
+    }
 
-        //Hier fehlt noch was
+    public static void updateSalesmanID(BufferedReader reader, ManagePersonal mp, int id) throws IOException {
+        SalesMan sm = mp.readSalesMan(id);
+        System.out.println("What is the new id of the employee?");
+        int newID = Integer.parseInt(reader.readLine());;
+        mp.updateSalesmanId(sm, newID);
+        System.out.println("Employee successfully updated");
+        PrintFunctions.printSalesMan(sm);
     }
 
     public static void updateEvaluationrecord(BufferedReader reader, ManagePersonal mp) throws IOException {
         System.out.println("Please enter the id of the employee you want to update their evaluation record");
-            int id = reader.read();
+            int id = Integer.parseInt(reader.readLine());;
 
             //Hier fehlt noch was
 

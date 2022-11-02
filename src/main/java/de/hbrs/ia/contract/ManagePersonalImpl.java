@@ -76,11 +76,10 @@ public class ManagePersonalImpl implements ManagePersonal {
         collection.insertOne(temp);
     }
 
-    public SalesMan deleteOneSalesman (SalesMan salesMan) {
+    public void deleteOneSalesman (SalesMan salesMan) {
         MongoCollection<SalesMan> collection = database.getCollection("salesman", SalesMan.class);
         //SalesMan salesMan = collection.find(id = salesManId);
         collection.findOneAndDelete(salesMan.toDocument());
-        return salesMan;
     }
 
     public void deleteAllSalesmen() {
