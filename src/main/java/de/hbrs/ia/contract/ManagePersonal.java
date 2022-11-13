@@ -14,11 +14,17 @@ public interface ManagePersonal {
 
     public List<SalesMan> querySalesMan(String attribute , String key );
 
-    public EvaluationRecord readEvaluationRecords(int sid );
+    public List<EvaluationRecord> readEvaluationRecords(int sid );
+
+    public EvaluationRecord readSingleEvaluationRecord(int id, int year);
 
     public void updateSalesmanLastName (SalesMan record, String newLastName);
 
     public void updateSalesmanId (SalesMan record, Integer newId);
+
+    public void updateEvaluationRecord(EvaluationRecord record);
+
+    public void deleteOneEvaluationRecord(EvaluationRecord record);
 
     public void deleteOneSalesman(SalesMan salesMan);
 

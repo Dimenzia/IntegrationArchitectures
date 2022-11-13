@@ -27,11 +27,11 @@ public class AddFunctions {
         System.out.println("Salesman was successfully added");
     }
 
-    public static void addingEvaluationRecord(BufferedReader reader, ManagePersonal mp) throws IOException {
+    public static EvaluationRecord addingEvaluationRecord(BufferedReader reader, ManagePersonal mp) throws IOException {
         System.out.println("Please enter the id of the employee");
-        int id = reader.read();
+        int id = Integer.parseInt(reader.readLine());
         System.out.println("Please enter the current year");
-        int year = reader.read();
+        int year = Integer.parseInt(reader.readLine());
 
 
         List<OrderEvaluation> oe = List.of();
@@ -39,6 +39,7 @@ public class AddFunctions {
 
         EvaluationRecord evaluationRecord = new EvaluationRecord(id, year, oe, se);
         mp.addPerformanceRecord(evaluationRecord, id);
-        System.out.println("Evaluationrecord was successfully added");
+
+        return evaluationRecord;
     }
 }

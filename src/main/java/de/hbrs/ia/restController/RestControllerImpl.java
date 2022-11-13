@@ -1,4 +1,4 @@
-package de.hbrs.ia.restController;
+/*package de.hbrs.ia.restController;
 
 import de.hbrs.ia.contract.ManagePersonal;
 import de.hbrs.ia.contract.ManagePersonalImpl;
@@ -74,4 +74,4 @@ public class RestControllerImpl {
 
 
 
-}
+}*/

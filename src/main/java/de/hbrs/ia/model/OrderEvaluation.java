@@ -1,6 +1,8 @@
 package de.hbrs.ia.model;
 
 public class OrderEvaluation {
+
+    private int id;
     private String productName;
     private String client;
     private String clientRanking;
@@ -8,6 +10,14 @@ public class OrderEvaluation {
     private int bonus;
 
     public OrderEvaluation() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getProductName() {

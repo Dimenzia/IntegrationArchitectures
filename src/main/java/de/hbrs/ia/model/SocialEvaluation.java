@@ -1,10 +1,20 @@
 package de.hbrs.ia.model;
 
 public class SocialEvaluation {
+
+    private int id;
     private String targetName;
     private int targetValue;
     private int actualValue;
     private int bonus;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTargetName() {
         return targetName;

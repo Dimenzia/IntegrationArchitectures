@@ -61,4 +61,22 @@ public class EvaluationRecord {
         document.append("SocialEvaluation", this.se);
         return document;
     }
+
+    public int generateID() {
+        //Here we want to give a new id for a new Order or Social Evaluation and we want to increment
+        int id = 0;
+        for(OrderEvaluation oe: this.oe) {
+            if(id <= oe.getId()) {
+                id = oe.getId() + 1;
+            }
+        }
+        for(SocialEvaluation se: this.se) {
+            if(id <= se.getId()) {
+                id = se.getId() + 1;
+            }
+
+        }
+
+        return id;
+    }
 }

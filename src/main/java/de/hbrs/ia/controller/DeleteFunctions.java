@@ -1,6 +1,7 @@
 package de.hbrs.ia.controller;
 
 import de.hbrs.ia.contract.ManagePersonal;
+import de.hbrs.ia.model.EvaluationRecord;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +11,7 @@ public class DeleteFunctions {
 
     public static void deleteSalesman(BufferedReader reader, ManagePersonal mp) throws IOException {
         System.out.println("Please enter the id of the employee you want to delete");
-        int id = reader.read();
+        int id = Integer.parseInt(reader.readLine());
 
         if (mp.readSalesMan(id) != null) {
             mp.deleteOneSalesman(mp.readSalesMan(id));
@@ -18,8 +19,6 @@ public class DeleteFunctions {
         } else {
             System.out.println("There is no employee with the id: " + id);
         }
-
-        // Hier stimmt noch etwas nicht, muss noch geupdated werden!
     }
 
     public static void deleteAllSalesMen(BufferedReader reader, ManagePersonal mp) throws IOException {
@@ -28,16 +27,22 @@ public class DeleteFunctions {
     }
 
     public static void deleteEvaluationrecord(BufferedReader reader, ManagePersonal mp) throws IOException {
-        System.out.println("Please enter the id of the employee you want to delete from");
-        int id = reader.read();
-        System.out.println("Please enter the year you want to delete from");
-        int year = reader.read();
+        EvaluationRecord record = ReadFunctions.readSingleEvaluationRecord(reader, mp);
 
-        //Hier fehlt noch was
+        mp.deleteOneEvaluationRecord(record);
     }
 
     public static void deleteAllEvaluationRecords(BufferedReader reader, ManagePersonal mp) {
         mp.deleteAllEvaluationRecords();
         System.out.println("All evaluation records were successfully deleted.");
+    }
+
+    public static void deleteOrderEvaluation(EvaluationRecord record, int id) {
+        record.getOe().removeIf(orderEvaluation -> orderEvaluation.getId() == id);
+
+    }
+
+    public static void deleteSocialEvaluation(EvaluationRecord record, int id) {
+        record.getSe().removeIf(socialEvaluation -> socialEvaluation.getId() == id);
     }
 }

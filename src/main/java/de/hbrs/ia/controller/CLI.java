@@ -6,9 +6,9 @@ import de.hbrs.ia.model.EvaluationRecord;
 import de.hbrs.ia.model.OrderEvaluation;
 import de.hbrs.ia.model.SalesMan;
 import de.hbrs.ia.model.SocialEvaluation;
-import org.springframework.boot.SpringApplication;
+/*import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;*/
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,42 +16,20 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
 
-@SpringBootApplication
-@AutoConfiguration
+//@SpringBootApplication
+//@AutoConfiguration
 public class CLI {
 
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     static ManagePersonal managePersonal = new ManagePersonalImpl();
 
     public static void main(String[] args) throws IOException {
-        SpringApplication.run(CLI.class, args);
-        // SalesMan test = new SalesMan("Darline", "Albus", 1);
-        // managePersonal.createSalesMan(test);
-        List<OrderEvaluation> oetest = List.of(
-                new OrderEvaluation(
-                        "HooverGo",
-                        "Telekom",
-                        "Exzellent",
-                        10,
-                        200
-                ));
+        //SpringApplication.run(CLI.class, args);
 
-        List<SocialEvaluation> setest = List.of(
-                new SocialEvaluation(
-                        "leadership",
-                        4,
-                        4,
-                        10
-                ));
-
-        EvaluationRecord test = new EvaluationRecord(1, 2022, oetest, setest);
-        managePersonal.addPerformanceRecord(test, 1);
         System.out.println("Welcome to the evaluation record system! Please enter help to see all commands");
         while (true) {
             executeCommand(read());
         }
-
-
     }
 
     public static String read() throws IOException {
@@ -71,7 +49,12 @@ public class CLI {
         }
 
         if(Objects.equals(command, "read salesman")) {
-            ReadFunctions.readSalesMan(reader, managePersonal);
+            SalesMan sm = ReadFunctions.readSalesMan(reader, managePersonal);
+            if (sm != null) {
+                PrintFunctions.printSalesMan(sm);
+            } else {
+                System.out.println("Employee does not exist");
+            }
         }
 
         if(Objects.equals(command, "update salesman")) {
@@ -103,22 +86,36 @@ public class CLI {
         }
 
         if(Objects.equals(command, "add evaluationrecord")) {
-            AddFunctions.addingEvaluationRecord(reader, managePersonal);
+            EvaluationRecord record = AddFunctions.addingEvaluationRecord(reader, managePersonal);
+            UpdateFunctions.updateEvaluationrecord(reader, managePersonal, record);
+            System.out.println("Evaluationrecord was successfully added");
         }
 
         if(Objects.equals(command, "read evaluationrecord")) {
-            ReadFunctions.readEvaluationRecords(reader, managePersonal);
+            EvaluationRecord record = ReadFunctions.readSingleEvaluationRecord(reader, managePersonal);
+            PrintFunctions.printEvaluationRecord(record);
+        }
+
+        if(Objects.equals(command, "read list of evaluationrecords")) {
+            List<EvaluationRecord> list = ReadFunctions.readEvaluationRecords(reader, managePersonal);
+            for(EvaluationRecord record : list) {
+                PrintFunctions.printEvaluationRecord(record);
+            }
         }
 
         if(Objects.equals(command, "update evaluationrecord")) {
-            //Hier fehlt noch was
+            EvaluationRecord record = ReadFunctions.readSingleEvaluationRecord(reader, managePersonal);
+            UpdateFunctions.updateEvaluationrecord(reader, managePersonal, record);
         }
 
         if(Objects.equals(command, "delete evaluationrecord")) {
-            //Hier fehlt noch was
+            DeleteFunctions.deleteEvaluationrecord(reader, managePersonal);
         }
+
         if(Objects.equals(command, "delete all evaluationrecords")) {
             DeleteFunctions.deleteAllEvaluationRecords(reader, managePersonal);
+
+            //Wird noch nicht aus der Datenbank gelöscht, muss noch gefixed werden
         }
     }
 }
