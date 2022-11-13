@@ -4,14 +4,20 @@ import de.hbrs.ia.contract.ManagePersonal;
 import de.hbrs.ia.contract.ManagePersonalImpl;
 import de.hbrs.ia.model.EvaluationRecord;
 import de.hbrs.ia.model.SalesMan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:8080")
+
 @RestController
-@RequestMapping("/api")
+//@RequestMapping("")
+@ComponentScan("de/hbrs/ia/controller")
 public class RestControllerImpl {
 
-    static ManagePersonal mp = new ManagePersonalImpl();
+    private static final String template = "Hello, %s!";
+
+    @Autowired
+    ManagePersonal mp = new ManagePersonalImpl();
 
     @GetMapping("/salesMan/{id}")
     public SalesMan getSalesman(@PathVariable int id) {
@@ -24,14 +30,15 @@ public class RestControllerImpl {
         return mp.readEvaluationRecords(id);
     }
 
-    @PostMapping("/salesMan")
-    public String createSalesman(SalesMan salesMan) {
+    @PostMapping("/salesMan/")
+    public String createSalesman(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int id) {
+        SalesMan salesMan = new SalesMan(firstName, lastName, id);
         mp.createSalesMan(salesMan);
         return "New salesman with has been created successfully: " + salesMan;
     }
 
     @PostMapping("/evaluationRecord")
-    public String createEvaluationRecord(int id, EvaluationRecord evaluationRecord) {
+    public String createEvaluationRecord(@RequestParam int id, @RequestBody EvaluationRecord evaluationRecord) {
     mp.addPerformanceRecord(evaluationRecord, id);
     return "New evaluation record with has been created successfully: " + evaluationRecord;
 }

@@ -6,20 +6,25 @@ import de.hbrs.ia.model.EvaluationRecord;
 import de.hbrs.ia.model.OrderEvaluation;
 import de.hbrs.ia.model.SalesMan;
 import de.hbrs.ia.model.SocialEvaluation;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@SpringBootApplication
+@AutoConfiguration
 public class CLI {
 
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     static ManagePersonal managePersonal = new ManagePersonalImpl();
 
     public static void main(String[] args) throws IOException {
+        SpringApplication.run(CLI.class, args);
         // SalesMan test = new SalesMan("Darline", "Albus", 1);
         // managePersonal.createSalesMan(test);
         List<OrderEvaluation> oetest = List.of(
@@ -45,6 +50,8 @@ public class CLI {
         while (true) {
             executeCommand(read());
         }
+
+
     }
 
     public static String read() throws IOException {
