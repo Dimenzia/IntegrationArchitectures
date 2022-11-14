@@ -2,24 +2,25 @@ package de.hbrs.ia.contract;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import de.hbrs.ia.model.EvaluationRecord;
 import de.hbrs.ia.model.OrderEvaluation;
-import de.hbrs.ia.model.SocialEvaluation;
 import de.hbrs.ia.model.SalesMan;
+import de.hbrs.ia.model.SocialEvaluation;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
-
+@Service
 public class ManagePersonalImpl implements ManagePersonal {
 
     static CodecRegistry pojoCodecRegistry = fromRegistries(

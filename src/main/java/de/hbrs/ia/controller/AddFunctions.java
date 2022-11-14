@@ -1,19 +1,19 @@
 package de.hbrs.ia.controller;
 
 import de.hbrs.ia.contract.ManagePersonal;
-import de.hbrs.ia.contract.ManagePersonalImpl;
 import de.hbrs.ia.model.EvaluationRecord;
 import de.hbrs.ia.model.OrderEvaluation;
 import de.hbrs.ia.model.SalesMan;
 import de.hbrs.ia.model.SocialEvaluation;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Objects;
 
+@Service
 public class AddFunctions {
+
 
     public static void addingSalesman(BufferedReader reader, ManagePersonal mp) throws IOException {
         System.out.println("Please enter the firstname of the Salesman");

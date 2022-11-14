@@ -3,12 +3,11 @@ package de.hbrs.ia.controller;
 import de.hbrs.ia.contract.ManagePersonal;
 import de.hbrs.ia.contract.ManagePersonalImpl;
 import de.hbrs.ia.model.EvaluationRecord;
-import de.hbrs.ia.model.OrderEvaluation;
 import de.hbrs.ia.model.SalesMan;
-import de.hbrs.ia.model.SocialEvaluation;
-/*import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;*/
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,15 +15,16 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
 
-//@SpringBootApplication
-//@AutoConfiguration
+@SpringBootApplication
+@AutoConfiguration
+@EnableMongoRepositories
 public class CLI {
 
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     static ManagePersonal managePersonal = new ManagePersonalImpl();
 
     public static void main(String[] args) throws IOException {
-        //SpringApplication.run(CLI.class, args);
+        SpringApplication.run(CLI.class, args);
 
         System.out.println("Welcome to the evaluation record system! Please enter help to see all commands");
         while (true) {

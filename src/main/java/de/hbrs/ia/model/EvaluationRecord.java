@@ -5,10 +5,14 @@ import org.bson.Document;
 
 import java.util.List;
 
+//@Entity
 public class EvaluationRecord {
+    //@Id
     private int employeeID;
     private int year;
+    //@Transient
     private List<OrderEvaluation> oe;
+    //@Transient
     private List<SocialEvaluation> se;
 
     public EvaluationRecord(int employeeID, int year, List<OrderEvaluation> oe, List<SocialEvaluation> se) {
@@ -69,5 +73,14 @@ public class EvaluationRecord {
         }
 
         return id;
+    }
+
+    public Document toDocument() {
+        org.bson.Document document = new Document();
+        document.append("employeeID", this.employeeID);
+        document.append("year", this.year);
+        document.append("OrderEvaluation", this.oe);
+        document.append("SocialEvaluation", this.se);
+        return document;
     }
 }
