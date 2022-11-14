@@ -16,10 +16,13 @@ public class PrintFunctions {
     public static void printEvaluationRecord(EvaluationRecord record) {
         System.out.println("Evaluation record");
         System.out.println("Name: " + CLI.managePersonal.readSalesMan(record.getEmployeeID()));
+        //Hier wird nicht der Salesman ausgegeben, muss noch gefixed werden!
         System.out.println("Employee ID: " + record.getEmployeeID());
         System.out.println("Year of performance: " + record.getYear());
+        System.out.println("-->");
         printOrderEvaluations(record);
         printSocialEvaluations(record);
+        System.out.println("");
     }
 
     public static void printSocialEvaluations(EvaluationRecord record) {

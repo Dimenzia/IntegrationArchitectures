@@ -80,10 +80,8 @@ public class ManagePersonalImpl implements ManagePersonal {
         MongoCollection<SalesMan> collection =
                 database.getCollection("salesman", SalesMan.class);
 
-        SalesMan temp = record;
-        temp.setLastname(newLastName);
-        collection.deleteOne(record.toDocument());
-        collection.insertOne(temp);
+        record.setLastname(newLastName);
+        collection.replaceOne(record.toDocument(), record);
     }
 
     public void updateSalesmanId (SalesMan record, Integer newId) {
@@ -124,11 +122,12 @@ public class ManagePersonalImpl implements ManagePersonal {
                 database.getCollection("evaluationrecord", EvaluationRecord.class);
 
         collection.deleteOne(record.toDocument());
+        System.out.println("Evaluationrecord was successfully deleted");
     }
 
     public void deleteAllEvaluationRecords() {
         MongoCollection<EvaluationRecord> collection =
-                database.getCollection("evaluationRecord", EvaluationRecord.class);
+                database.getCollection("evaluationrecord", EvaluationRecord.class);
 
         collection.deleteMany(new Document());
     }

@@ -41,11 +41,18 @@ public class CLI {
     public static void executeCommand(String command) throws IOException {
 
         if(Objects.equals(command, "help")) {
-            System.out.println("Available Commands: add (salesman/evaluationrecord), read (salesman/evaluationrecord), update (salesman/evaluationrecord), delete (salesman/evaluationrecord)");
+            System.out.println("Available Commands: \n" +
+                    "-> add (salesman/evaluationrecord) \n" +
+                    "-> read (salesman / evaluationrecord / list of evaluationrecords) \n" +
+                    "-> update (salesman/evaluationrecord) \n" +
+                    "-> delete (salesman / all salesmen / evaluationrecord / all evaluationrecords)\n" +
+                    "-> exit");
         }
 
         if(Objects.equals(command, "add salesman")) {
             AddFunctions.addingSalesman(reader, managePersonal);
+
+            //Working but only with right inputs, exception handling is missing!
         }
 
         if(Objects.equals(command, "read salesman")) {
@@ -61,24 +68,39 @@ public class CLI {
             System.out.println("Please enter the id of the employee you want to update");
             int id = Integer.parseInt(reader.readLine());;
             SalesMan sm = managePersonal.readSalesMan(id);
-            System.out.println("What do u want to update? (available options: id or last name)");
-            String response = reader.readLine();
 
-            if(Objects.equals(response, "id")) {
-                UpdateFunctions.updateSalesmanID(reader, managePersonal, id);
+            if(sm != null) {
+                System.out.println("What do u want to update? (available options: id or last name)");
+                String response = reader.readLine();
+
+                if (Objects.equals(response, "id")) {
+                    UpdateFunctions.updateSalesmanID(reader, managePersonal, id);
+                }
+
+                //Working! (What if client typed in a String instead of an int?) (NumberFormatException)
+
+                else if (Objects.equals(response, "last name")) {
+                    UpdateFunctions.updateSalesmanLastName(reader, managePersonal, id);
+                }
+
+                //Working! (What if the client typed in an int instead of a String?) (Number is taken as String, no exception)
+
+                else {
+                    System.out.println("Invalid input");
+                }
+            } else {
+                System.out.println("A Salesman with this id does not exist");
             }
 
-            else if(Objects.equals(response, "last name")) {
-                UpdateFunctions.updateSalesmanLastName(reader, managePersonal, id);
-            }
-
-            else {
-                System.out.println("Invalid input");
-            }
+            //Salesman doesnt get updated,
+            //everytime it creates a new version of the salesman and speichert es ein!!
+            //Need to be fixed!
         }
 
         if(Objects.equals(command, "delete salesman")) {
             DeleteFunctions.deleteSalesman(reader, managePersonal);
+
+            //Hier stimmt etwas nicht! (Salesman wird nicht aus der Datenbank gelöscht!)
         }
 
         if(Objects.equals(command, "delete all salesmen")) {
@@ -89,11 +111,17 @@ public class CLI {
             EvaluationRecord record = AddFunctions.addingEvaluationRecord(reader, managePersonal);
             UpdateFunctions.updateEvaluationrecord(reader, managePersonal, record);
             System.out.println("Evaluationrecord was successfully added");
+
+            //Funktioniert halbwegs, Evaluationrecord wird angelegt,
+            //aber Order und Social Evaluation werden nicht richtig abgespeichert,
+            //exit löst eine Fehlermeldung aus
         }
 
         if(Objects.equals(command, "read evaluationrecord")) {
             EvaluationRecord record = ReadFunctions.readSingleEvaluationRecord(reader, managePersonal);
             PrintFunctions.printEvaluationRecord(record);
+
+            //Working, but not printing the Order and Social Evaluations correctly
         }
 
         if(Objects.equals(command, "read list of evaluationrecords")) {
@@ -101,21 +129,31 @@ public class CLI {
             for(EvaluationRecord record : list) {
                 PrintFunctions.printEvaluationRecord(record);
             }
+
+            //Working but not the cleanest looking, please improve !
+            //If you type in an id that doesnt exist it just showes nothing,
+            //maybe add something that says there is not Evaluationrecord with that id given
         }
 
         if(Objects.equals(command, "update evaluationrecord")) {
             EvaluationRecord record = ReadFunctions.readSingleEvaluationRecord(reader, managePersonal);
             UpdateFunctions.updateEvaluationrecord(reader, managePersonal, record);
+
+            //Working until exit (IllegalArgumentException : Invalid BSON field name employeeID), cant add OE oder SE
         }
 
         if(Objects.equals(command, "delete evaluationrecord")) {
             DeleteFunctions.deleteEvaluationrecord(reader, managePersonal);
+
+            //Hier stimmt etwas nicht ! (Evaluationrecord wird nicht aus der Datenbank gelöscht!)
         }
 
         if(Objects.equals(command, "delete all evaluationrecords")) {
             DeleteFunctions.deleteAllEvaluationRecords(reader, managePersonal);
+        }
 
-            //Wird noch nicht aus der Datenbank gelöscht, muss noch gefixed werden
+        if(Objects.equals(command, "exit")) {
+            //Hier fehlt noch der Code zum beenden des Programms!
         }
     }
 }
