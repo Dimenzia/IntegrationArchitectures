@@ -81,25 +81,24 @@ public class ManagePersonalImpl implements ManagePersonal {
                 database.getCollection("salesman", SalesMan.class);
 
         record.setLastname(newLastName);
-        collection.replaceOne(record.toDocument(), record);
+        collection.replaceOne(eq("sid", record.getSid()), record);
     }
 
     public void updateSalesmanId (SalesMan record, Integer newId) {
         MongoCollection<SalesMan> collection =
                 database.getCollection("salesman", SalesMan.class);
 
-        SalesMan temp = record;
-        temp.setSid(newId);
-        collection.deleteOne(record.toDocument());
-        collection.insertOne(temp);
+        int oldID = record.getSid();
+        record.setSid(newId);
+        collection.replaceOne(eq("sid", oldID), record);
     }
 
     public void updateEvaluationRecord (EvaluationRecord record) {
         MongoCollection<EvaluationRecord> collection =
                 database.getCollection("evaluationrecord", EvaluationRecord.class);
 
-        collection.updateOne(and(eq("employeeID", record.getEmployeeID()),
-                eq("year", record.getYear())), record.toDocument());
+        collection.replaceOne(and(eq("employeeID", record.getEmployeeID()),
+                eq("year", record.getYear())), record);
 
     }
 
@@ -107,7 +106,7 @@ public class ManagePersonalImpl implements ManagePersonal {
         MongoCollection<SalesMan> collection =
                 database.getCollection("salesman", SalesMan.class);
 
-        collection.deleteOne(salesMan.toDocument());
+        collection.deleteOne(eq("sid", salesMan.getSid()));
     }
 
     public void deleteAllSalesmen() {
@@ -121,7 +120,7 @@ public class ManagePersonalImpl implements ManagePersonal {
         MongoCollection<EvaluationRecord> collection =
                 database.getCollection("evaluationrecord", EvaluationRecord.class);
 
-        collection.deleteOne(record.toDocument());
+        collection.deleteOne(eq("employeeID", record.getEmployeeID()));
         System.out.println("Evaluationrecord was successfully deleted");
     }
 

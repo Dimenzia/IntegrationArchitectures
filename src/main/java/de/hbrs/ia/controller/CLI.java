@@ -91,16 +91,10 @@ public class CLI {
             } else {
                 System.out.println("A Salesman with this id does not exist");
             }
-
-            //Salesman doesnt get updated,
-            //everytime it creates a new version of the salesman and speichert es ein!!
-            //Need to be fixed!
         }
 
         if(Objects.equals(command, "delete salesman")) {
             DeleteFunctions.deleteSalesman(reader, managePersonal);
-
-            //Hier stimmt etwas nicht! (Salesman wird nicht aus der Datenbank gelöscht!)
         }
 
         if(Objects.equals(command, "delete all salesmen")) {
@@ -138,14 +132,10 @@ public class CLI {
         if(Objects.equals(command, "update evaluationrecord")) {
             EvaluationRecord record = ReadFunctions.readSingleEvaluationRecord(reader, managePersonal);
             UpdateFunctions.updateEvaluationrecord(reader, managePersonal, record);
-
-            //Working until exit (IllegalArgumentException : Invalid BSON field name employeeID), cant add OE oder SE
         }
 
         if(Objects.equals(command, "delete evaluationrecord")) {
             DeleteFunctions.deleteEvaluationrecord(reader, managePersonal);
-
-            //Hier stimmt etwas nicht ! (Evaluationrecord wird nicht aus der Datenbank gelöscht!)
         }
 
         if(Objects.equals(command, "delete all evaluationrecords")) {
@@ -153,7 +143,8 @@ public class CLI {
         }
 
         if(Objects.equals(command, "exit")) {
-            //Hier fehlt noch der Code zum beenden des Programms!
+            System.out.println("Good bye!");
+            System.exit(0);
         }
     }
 }
