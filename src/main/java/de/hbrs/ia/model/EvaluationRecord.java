@@ -53,15 +53,6 @@ public class EvaluationRecord {
     public EvaluationRecord() {
     }
 
-    public Document toDocument() {
-        org.bson.Document document = new Document();
-        document.append("employeeID", this.employeeID);
-        document.append("year", this.year);
-        document.append("OrderEvaluation", this.oe);
-        document.append("SocialEvaluation", this.se);
-        return document;
-    }
-
     public int generateID() {
         //Here we want to give a new id for a new Order or Social Evaluation and we want to increment
         int id = 0;

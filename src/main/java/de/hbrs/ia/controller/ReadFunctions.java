@@ -27,7 +27,7 @@ public class ReadFunctions {
     }
 
     public static EvaluationRecord readSingleEvaluationRecord(BufferedReader reader, ManagePersonal mp) throws IOException {
-        System.out.println("Please enter the id of the employee you want to see");
+        System.out.println("Please enter the employee id");
         int id = Integer.parseInt(reader.readLine());
         System.out.println("Please enter the year of the evaluation record");
         int year = Integer.parseInt(reader.readLine());

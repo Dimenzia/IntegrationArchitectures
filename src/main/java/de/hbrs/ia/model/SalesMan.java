@@ -41,11 +41,4 @@ public class SalesMan {
         this.sid = sid;
     }
 
-    public Document toDocument() {
-        org.bson.Document document = new Document();
-        document.append("firstname" , this.firstname );
-        document.append("lastname" , this.lastname );
-        document.append("id" , this.sid);
-        return document;
-    }
 }
