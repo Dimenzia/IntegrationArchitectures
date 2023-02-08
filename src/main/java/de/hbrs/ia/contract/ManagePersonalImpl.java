@@ -8,9 +8,11 @@ import de.hbrs.ia.model.EvaluationRecord;
 import de.hbrs.ia.model.OrderEvaluation;
 import de.hbrs.ia.model.SalesMan;
 import de.hbrs.ia.model.SocialEvaluation;
+import de.hbrs.ia.repositories.SalesManRepository;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

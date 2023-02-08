@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SalesManRepository extends MongoRepository<SalesMan, String> {
+public interface SalesManRepository extends MongoRepository<SalesMan, Integer> {
 
     SalesMan findById(int id);
     void deleteSalesManById(int id);

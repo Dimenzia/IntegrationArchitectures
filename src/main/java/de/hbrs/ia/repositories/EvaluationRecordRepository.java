@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EvaluationRecordRepository extends MongoRepository<EvaluationRecord, String> {
+public interface EvaluationRecordRepository extends MongoRepository<EvaluationRecord, Integer> {
 
     EvaluationRecord findById(int id);
     void deleteEvaluationRecordById(int id);

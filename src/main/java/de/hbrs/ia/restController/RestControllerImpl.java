@@ -8,34 +8,182 @@ import de.hbrs.ia.repositories.EvaluationRecordRepository;
 import de.hbrs.ia.repositories.SalesManRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 
 @RestController
 @RequestMapping("/api")
+@ComponentScan
 public class RestControllerImpl {
 
     private static final String template = "Hello, %s!";
 
-    @Autowired
-    ManagePersonal mp = new ManagePersonalImpl();
+    static ManagePersonal mp = new ManagePersonalImpl();
 
     @Autowired
-    private SalesManRepository salesManRepository;
+    private SalesManRepository salesManRepository = new SalesManRepository(){
+
+        @Override
+        public <S extends SalesMan> S save(S entity) {
+            mp.createSalesMan(entity);
+            return null;
+        }
+
+        @Override
+        public Optional<SalesMan> findById(Integer integer) {
+            return Optional.ofNullable(mp.readSalesMan((int) integer));
+        }
+
+        @Override
+        public boolean existsById(Integer integer) {
+            return false;
+        }
+
+
+        @Override
+        public <S extends SalesMan> List<S> saveAll(Iterable<S> entities) {
+            return null;
+        }
+
+        @Override
+        public List<SalesMan> findAll() {
+            return null;
+        }
+
+        @Override
+        public Iterable<SalesMan> findAllById(Iterable<Integer> integers) {
+            return null;
+        }
+
+        @Override
+        public long count() {
+            return 0;
+        }
+
+        @Override
+        public void deleteById(Integer integer) {
+            mp.deleteOneSalesman(mp.readSalesMan(integer));
+        }
+
+        @Override
+        public void delete(SalesMan entity) {
+            mp.deleteOneSalesman(entity);
+        }
+
+        @Override
+        public void deleteAllById(Iterable<? extends Integer> integers) {
+        }
+
+        @Override
+        public void deleteAll(Iterable<? extends SalesMan> entities) {
+            mp.deleteAllSalesmen();
+        }
+
+        @Override
+        public void deleteAll() {
+            mp.deleteAllSalesmen();
+        }
+
+        @Override
+        public List<SalesMan> findAll(Sort sort) {
+            return null;
+        }
+
+        @Override
+        public Page<SalesMan> findAll(Pageable pageable) {
+            return null;
+        }
+
+        @Override
+        public <S extends SalesMan> S insert(S entity) {
+            mp.createSalesMan(entity);
+            return entity;
+        }
+
+        @Override
+        public <S extends SalesMan> List<S> insert(Iterable<S> entities) {
+            return null;
+        }
+
+        @Override
+        public <S extends SalesMan> Optional<S> findOne(Example<S> example) {
+            return Optional.empty();
+        }
+
+        @Override
+        public <S extends SalesMan> List<S> findAll(Example<S> example) {
+            return null;
+        }
+
+        @Override
+        public <S extends SalesMan> List<S> findAll(Example<S> example, Sort sort) {
+            return null;
+        }
+
+        @Override
+        public <S extends SalesMan> Page<S> findAll(Example<S> example, Pageable pageable) {
+            return null;
+        }
+
+        @Override
+        public <S extends SalesMan> long count(Example<S> example) {
+            return 0;
+        }
+
+        @Override
+        public <S extends SalesMan> boolean exists(Example<S> example) {
+            return false;
+        }
+
+        @Override
+        public <S extends SalesMan, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+            return null;
+        }
+
+        @Override
+        public SalesMan findById(int id) {
+            return mp.readSalesMan(id);
+        }
+
+        @Override
+        public void deleteSalesManById(int id) {
+            mp.deleteOneSalesman(mp.readSalesMan(id));
+        }
+
+        @Override
+        public void deleteAllBy(int id) {
+            mp.deleteAllSalesmen();
+        }
+    };
 
     @Autowired
     private EvaluationRecordRepository evaluationRecordRepository;
 
     @GetMapping("/salesMan/{id}")
     public SalesMan getSalesman(@PathVariable int id) {
-        return salesManRepository.findById(id);
+        if (salesManRepository.findById(id) == null) {
+            return mp.readSalesMan(id);
+        } else {
+        return salesManRepository.findById(id);}
     }
     
 
     @GetMapping("/evaluationRecord/{id}/{year}")
     public EvaluationRecord getEvaluationRecord(@PathVariable int id, @PathVariable int year) {
-        return evaluationRecordRepository.findById(id);
-        //return mp.readSingleEvaluationRecord(id, year);
+        if (!(evaluationRecordRepository.findById(id) instanceof EvaluationRecord)) {
+            return mp.readSingleEvaluationRecord(id, year);
+        } else {
+            return evaluationRecordRepository.findById(id);
+        } //return mp.readSingleEvaluationRecord(id, year);
     }
 
     @PostMapping("/salesMan/")
