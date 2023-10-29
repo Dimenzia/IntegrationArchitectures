@@ -27,8 +27,8 @@ public class RestControllerImpl {
 
     }
 
-    @PostMapping("/salesman/")
-    public String createSalesman(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int id) {
+    @PostMapping("/salesman")
+    public String createSalesman(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestParam("id") int id) {
         SalesMan salesMan = new SalesMan(firstName, lastName, id);
         mp.createSalesMan(salesMan);
         return "New salesman with id " + id + " has been created successfully: " + salesMan.toDocument();
